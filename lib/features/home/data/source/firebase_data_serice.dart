@@ -1,5 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:qolber_clean_arc/features/home/data/models/post_model.dart';
 
 import '../../../../core/errors/firestore_failure.dart';
@@ -10,12 +13,13 @@ abstract class FireBaseDataService {
   Future<Either<FireStoreFailure, Unit>> createPost(Post post);
   Future<Either<FireStoreFailure, Unit>> deletePost(String postId);
   Future<Either<FireStoreFailure, List<Post>>> fetchAllPost(String postId);
-  Future<Either<FireStoreFailure, List<Post>>> fetchPostByUserId(String userId);
+  Future<Either<FireStoreFailure,List<Post>>> fetchPostByUserId(String userId);
 }
 
 
 class FireBaseDataServiceImp implements FireBaseDataService {
   final FirebaseFirestore fireStore = sl<FirebaseFirestore>();
+  final storage = FirebaseStorage.instance;
 
   late final CollectionReference postCollection = fireStore.collection('post');
 
@@ -72,4 +76,5 @@ class FireBaseDataServiceImp implements FireBaseDataService {
       return Left(FireStoreFailure.fromExeption(error));
     }
   }
+
 }

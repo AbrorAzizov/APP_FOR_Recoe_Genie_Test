@@ -25,7 +25,7 @@ class PostRepoImp implements PostRepo {
 
   @override
   Future<Either> fetchPostByUserId(String userId) async{
-    // TODO: implement fetchPostByUserId
+
     return  await sl<FireBaseDataService>().fetchPostByUserId(userId);
   }
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991605031503",
+    "project_id": "qolber-clean-arc",
+    "storage_bucket": "qolber-clean-arc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991605031503:android:351681d2023a1edeb5203a",
+        "android_client_info": {
+          "package_name": "com.example.qolber_clean_arc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC37X2oiYo4KxUO7qzpNNDsfrLYfyF2TM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

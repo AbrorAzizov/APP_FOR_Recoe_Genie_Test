@@ -7,7 +7,7 @@ import '../../../../core/errors/firestore_failure.dart';
 import '../../../../servise_locator.dart';
 import '../source/firebase_data_serice.dart';
 
-class PostRepoImp implements PostRepo {
+class FireBasePostRepoImp implements PostRepo {
   @override
   Future<Either> createPost(Post post) {
    return sl<FireBaseDataService>().createPost(post);

@@ -15,11 +15,7 @@ class HomeStateLoading extends HomeState{}
 
 
 @immutable
-class HomeStateLoaded extends HomeState{
-  final List<Post> post;
-
-  HomeStateLoaded({required this.post});
-}
+class HomeStateLoaded extends HomeState{}
 
 @immutable
 class HomeStateInitial extends HomeState{}

@@ -26,8 +26,8 @@ class FirebaseStorageRepo implements StorageRepo{
   }
 
   @override
-  Future<String?> uploadPostImageWeb(Uint8List fileBytes, String path) {
-    return _uploadFileBytes(fileBytes, 'post', fileName);
+  Future<String?> uploadPostImageWeb(Uint8List fileBytes, String fileName) {
+    return _uploadFileBytes(fileBytes, 'post',  fileName);
   }
 
   Future<String?> _uploadFile (String path, String folder, String fileName)async{

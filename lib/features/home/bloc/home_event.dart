@@ -1,5 +1,3 @@
-
-
 import 'dart:nativewrappers/_internal/vm/lib/typed_data_patch.dart';
 
 import 'package:flutter/foundation.dart' show immutable;
@@ -21,4 +19,8 @@ class HomeEventCreatePost extends HomeEvent{
   HomeEventCreatePost(this.imagePath, this.imageBytes, {required this.post});
 }
 
-class HomeEventDeletePost extends HomeEvent{}
+class HomeEventDeletePost extends HomeEvent{
+  final String postId;
+
+  HomeEventDeletePost({required this.postId});
+}

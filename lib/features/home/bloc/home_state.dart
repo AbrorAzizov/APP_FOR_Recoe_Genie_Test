@@ -3,7 +3,6 @@
 
 
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:qolber_clean_arc/features/home/domain/entities/post.dart';
 
 import '../../../core/errors/firestore_failure.dart';
 

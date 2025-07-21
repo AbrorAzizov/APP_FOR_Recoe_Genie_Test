@@ -5,6 +5,5 @@ abstract class AuthRepo {
   Future<Either> signIn (UserModel user);
   Future<Either> signUp (UserModel user);
   Future<bool> isLoggedIn ();
-  Future<Either> getUser();
   Future<Either> logout();
 }

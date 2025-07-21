@@ -1,14 +1,14 @@
 import '../../domain/entity/user_entity.dart';
 
 class UserModel {
-  final String? password;
+  final String password;
   final String email;
-  final String name;
+  final String? name;
 
   UserModel({
     required this.password,
     required this.email,
-    required this.name,
+    this.name,
   });
 
   Map<String, dynamic> toMap() {
@@ -24,7 +24,7 @@ class UserModel {
   }
 
   User toEntity(){
-    return User(email: email,username: name);
+    return User(email: email,username: name!);
   }
 
 }

@@ -22,8 +22,8 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Top background images
-            Container(
+            // Top Background
+            SizedBox(
               height: 400,
               child: Stack(
                 children: [
@@ -55,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
 
-            // Form
+            // Form content
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Column(
@@ -76,7 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   FadeInUp(
                     duration: Duration(milliseconds: 1400),
-                    child: _buildInputField("Full Name", _nameController),
+                    child: _buildInputField("Name", _nameController),
                   ),
                   SizedBox(height: 10),
                   FadeInUp(
@@ -97,8 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         final name = _nameController.text.trim();
                         final email = _emailController.text.trim();
                         final password = _passwordController.text.trim();
-                        print("Sign Up with: $name, $email, $password");
-                        // TODO: Connect to your sign-up logic
+                        // TODO: Submit to auth logic
                       },
                       height: 50,
                       color: Color.fromRGBO(49, 39, 79, 1),
@@ -107,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       child: Center(
                         child: Text(
-                          "Sign Up",
+                          "Create Account",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -120,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Center(
                       child: TextButton(
                         onPressed: () {
-                          // TODO: Navigate to login
+                          // TODO: Navigate to Sign In page
                         },
                         child: Text(
                           "Already have an account? Sign In",
@@ -133,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),

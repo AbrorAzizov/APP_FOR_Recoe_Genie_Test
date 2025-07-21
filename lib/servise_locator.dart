@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 
 import 'package:qolber_clean_arc/features/auth/domain/repo/auth_repo.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
 import 'package:qolber_clean_arc/features/home/data/repo/post_repo_imp.dart';
 import 'package:qolber_clean_arc/features/home/storage/domain/storage_repo.dart';
 
@@ -16,7 +17,11 @@ final sl = GetIt.instance;
 
 
 void setupServiceLocator() {
- /// auth
+
+
+
+
+  /// auth
 
   sl.registerSingleton<AuthRepo>(AuthRepoImp());
   sl.registerSingleton<AuthCubit>(AuthCubit());
@@ -27,4 +32,5 @@ void setupServiceLocator() {
  sl.registerSingleton<FireBaseDataService>(FireBaseDataServiceImp());
  sl.registerSingleton<PostRepo>(FireBasePostRepoImp());
  sl.registerSingleton<StorageRepo>(FirebaseStorageRepo());
+  sl.registerSingleton<HomeBloc>(HomeBloc());
 }

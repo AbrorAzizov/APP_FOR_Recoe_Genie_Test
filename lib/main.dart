@@ -3,10 +3,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qolber_clean_arc/features/auth/pages/login_page.dart';
+import 'package:qolber_clean_arc/injection.dart';
 import 'package:qolber_clean_arc/servise_locator.dart';
 
+
 import 'firebase_options.dart';
-import 'injection.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,7 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupServiceLocator();
-  runApp(const MyApp());
+  runApp(Injection( child: MyApp()));
 
 }
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  HomePage(),
+      home:  SignUpPage(),
     );
 
   }

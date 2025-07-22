@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
+import 'package:qolber_clean_arc/core/errors/firebase_auth_errors.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 
 import 'package:qolber_clean_arc/features/auth/domain/repo/auth_repo.dart';
@@ -25,7 +26,7 @@ void setupServiceLocator() {
 
   sl.registerSingleton<AuthRepo>(AuthRepoImp());
   sl.registerSingleton<AuthCubit>(AuthCubit());
-  sl.reg
+  sl.registerLazySingleton<AuthError>(() =>AuthError,);
 
 /// home
 

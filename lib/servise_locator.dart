@@ -25,6 +25,7 @@ void setupServiceLocator() {
 
   sl.registerSingleton<AuthRepo>(AuthRepoImp());
   sl.registerSingleton<AuthCubit>(AuthCubit());
+  sl.reg
 
 /// home
 

@@ -11,7 +11,7 @@ class AuthRepoImp implements AuthRepo {
 
   @override
   Future<bool> isLoggedIn() async{
-    final user = await  FirebaseAuth.instance.currentUser;
+    final user =  FirebaseAuth.instance.currentUser;
     if (user == null) {
       return false;
     } else {

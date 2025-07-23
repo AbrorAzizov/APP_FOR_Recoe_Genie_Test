@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:qolber_clean_arc/features/home/domain/entities/post.dart';
 
 import '../../../core/errors/firestore_failure.dart';
 
@@ -14,7 +15,11 @@ class HomeStateLoading extends HomeState{}
 
 
 @immutable
-class HomeStateLoaded extends HomeState{}
+class HomeStateLoaded extends HomeState{
+  final List<Post> posts;
+
+  HomeStateLoaded({required this.posts});
+}
 
 @immutable
 class HomeStateInitial extends HomeState{}

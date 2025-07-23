@@ -29,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> sigUp(UserModel user) async {
     emit(AuthStateLoading());
     try {
-      Either response = await sl<AuthRepoImp>().signUp(user);
+      Either response = await sl<AuthRepo>().signUp(user);
       response.fold((error) {
         emit(AuthStateError(authError: error));
       }, (data) {
@@ -43,7 +43,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signIn(UserModel userModel) async {
     emit(AuthStateLoading());
     try {
-      Either response = await sl<AuthRepoImp>().signIn(userModel);
+      Either response = await sl<AuthRepo>().signIn(userModel);
       response.fold((error) {
         emit(AuthStateError(authError: error));
       }, (data) {

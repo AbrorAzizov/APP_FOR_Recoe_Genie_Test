@@ -1,5 +1,7 @@
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:qolber_clean_arc/features/home/domain/entities/post.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
 
@@ -19,8 +21,8 @@ class FireBasePostRepoImp implements PostRepo {
   }
 
   @override
-  Future<Either<FireStoreFailure,List<Post>>> fetchAllPost(String postId) async{
-    return await sl<FireBaseDataService>().fetchAllPost(postId);
+  Future<Either<FireStoreFailure,List<Post>>> fetchAllPost() async{
+    return await sl<FireBaseDataService>().fetchAllPost();
   }
 
   @override
@@ -28,5 +30,13 @@ class FireBasePostRepoImp implements PostRepo {
 
     return  await sl<FireBaseDataService>().fetchPostByUserId(userId);
   }
+
+  @override
+  Future<String?> getUserId() async {
+    final user = FirebaseAuth.instance.currentUser;
+    return user?.uid; // returns uid or null if not logged in
+  }
+
+
 
 }

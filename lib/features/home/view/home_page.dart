@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,6 +10,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+  void initState(){
+    super.initState();
+     fetchPost();
+  }
+
+  void fetchPost () {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

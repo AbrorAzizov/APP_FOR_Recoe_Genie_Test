@@ -1,79 +1,69 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter/cupertino.dart';
 
 import '../../domain/repo/auth_repo.dart';
 import '../models/sign_up_parameters.dart';
 
 class AuthRepoImp implements AuthRepo {
-  final currentUser = FirebaseAuth.instance.currentUser;
+  final _auth = FirebaseAuth.instance;
 
   @override
-  Future<bool> isLoggedIn() async{
-    final user =  FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      return false;
-    } else {
-      return true;
-    }
+  Future<bool> isLoggedIn() async {
+    return _auth.currentUser != null;
   }
 
   @override
-  Future<Either> logout() async{
-    try{
-      await FirebaseAuth.instance.signOut();
+  Future<Either<String, Unit>> logout() async {
+    try {
+      await _auth.signOut();
       return Right(unit);
-    }  on FirebaseAuthException catch (e) {
-      return Left(e.toString());
+    } on FirebaseAuthException catch (e) {
+      return Left(e.message ?? "Logout failed");
     }
   }
 
   @override
-  Future<Either> signIn(UserModel user) async{
-    final email = user.email;
-    final password = user.password;
-
+  Future<Either<String, Unit>> signIn(UserModel user) async {
     try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      final currentUser = userCredential.user;
-      if(currentUser == null) {
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: user.email,
+        password: user.password,
+      );
+
+      if (userCredential.user == null) {
         return Left("User not found");
       }
 
-      return Right(Unit);
+      return Right(unit);
     } on FirebaseAuthException catch (e) {
-      return Left(e.toString());
+      return Left(e.message ?? "Sign in failed");
     }
   }
 
   @override
-  Future<Either> signUp(UserModel user) async{
-    final email = user.email;
-    final password = user.password;
-    final name = user.name;
-
+  Future<Either<String, Unit>> signUp(UserModel user) async {
     try {
-      final userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      final currentUser = userCredential.user;
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: user.email,
+        password: user.password,
+      );
 
-      if(currentUser == null) {
+      final currentUser = userCredential.user;
+      if (currentUser == null) {
         return Left("User not found");
       }
 
-      await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).set(
-          {
-            'password':password,
-            'email':email,
-            'name': name,
-            'created_at': Timestamp.now(),
-          });
-      return Right(Unit);
+      await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).set({
+        'email': user.email,
+        'name': user.name,
+        'created_at': Timestamp.now(),
+      });
+      debugPrint('fire');
+      return Right(unit);
     } on FirebaseAuthException catch (e) {
-      return Left(e.toString());
+      return Left(e.message ?? "Sign up failed");
     }
   }
 }
-

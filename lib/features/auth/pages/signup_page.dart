@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
+import 'package:qolber_clean_arc/features/auth/data/models/sign_up_parameters.dart';
+import 'package:qolber_clean_arc/features/auth/pages/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -73,7 +77,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   SizedBox(height: 30),
-
                   FadeInUp(
                     duration: Duration(milliseconds: 1400),
                     child: _buildInputField("Name", _nameController),
@@ -86,10 +89,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(height: 10),
                   FadeInUp(
                     duration: Duration(milliseconds: 1800),
-                    child: _buildInputField("Password", _passwordController, isPassword: true),
+                    child: _buildInputField("Password", _passwordController,
+                        isPassword: true),
                   ),
                   SizedBox(height: 30),
-
                   FadeInUp(
                     duration: Duration(milliseconds: 2000),
                     child: MaterialButton(
@@ -97,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         final name = _nameController.text.trim();
                         final email = _emailController.text.trim();
                         final password = _passwordController.text.trim();
-                        // TODO: Submit to auth logic
+                        context.read<AuthCubit>().sigUp(UserModel(password: password, email: email,name: name));
                       },
                       height: 50,
                       color: Color.fromRGBO(49, 39, 79, 1),
@@ -113,13 +116,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   SizedBox(height: 20),
-
                   FadeInUp(
                     duration: Duration(milliseconds: 2200),
                     child: Center(
                       child: TextButton(
                         onPressed: () {
-                          // TODO: Navigate to Sign In page
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => SignIn()),
+                          );
                         },
                         child: Text(
                           "Already have an account? Sign In",
@@ -139,7 +144,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildInputField(String hint, TextEditingController controller, {bool isPassword = false}) {
+  Widget _buildInputField(String hint, TextEditingController controller,
+      {bool isPassword = false}) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(

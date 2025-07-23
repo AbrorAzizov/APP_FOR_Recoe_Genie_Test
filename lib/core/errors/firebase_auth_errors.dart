@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 
@@ -23,6 +24,7 @@ abstract class AuthError {
   });
 
   factory AuthError.from(String exception) {
+    debugPrint('$exception');
     final code = exception.toLowerCase().trim();
     return authErrorMapping[code] ?? const AuthErrorUnknown();
   }

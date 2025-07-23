@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_state.dart';
-import 'package:qolber_clean_arc/features/auth/pages/login_page.dart';
+import 'package:qolber_clean_arc/features/auth/pages/signup_page.dart';
 import 'package:qolber_clean_arc/features/home/view/home_page.dart';
 
 import '../../../core/dialog/error_dialog.dart';
@@ -21,6 +21,7 @@ class AuthView extends StatelessWidget {
        if  (state is AuthStateLoggedIn){
          return HomePage();
        }
+       return Container();
     }, listener: (context, state) {
       if (state is AuthStateLoading) {
         Loading();

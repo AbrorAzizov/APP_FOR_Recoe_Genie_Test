@@ -12,7 +12,7 @@ import '../../domain/entities/post.dart';
 abstract class FireBaseDataService {
   Future<Either<FireStoreFailure, Unit>> createPost(Post post);
   Future<Either<FireStoreFailure, Unit>> deletePost(String postId);
-  Future<Either<FireStoreFailure, List<Post>>> fetchAllPost(String postId);
+  Future<Either<FireStoreFailure, List<Post>>> fetchAllPost();
   Future<Either<FireStoreFailure,List<Post>>> fetchPostByUserId(String userId);
 }
 
@@ -46,7 +46,7 @@ class FireBaseDataServiceImp implements FireBaseDataService {
   }
 
   @override
-  Future<Either<FireStoreFailure,List<Post>>> fetchAllPost(String postId) async {
+  Future<Either<FireStoreFailure,List<Post>>> fetchAllPost() async {
     try {
       final postSnapshot = await postCollection.orderBy('timestamp', descending: true).get();
       final List<Post> postList = postSnapshot.docs.map((e) {

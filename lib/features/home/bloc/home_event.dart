@@ -1,6 +1,6 @@
-import 'dart:nativewrappers/_internal/vm/lib/typed_data_patch.dart';
 
 import 'package:flutter/foundation.dart' show immutable;
+import 'dart:typed_data';
 
 import '../domain/entities/post.dart';
 
@@ -8,7 +8,10 @@ import '../domain/entities/post.dart';
 abstract class HomeEvent {}
 
 @immutable
-class HomeEventFetchUsers extends HomeEvent{}
+class HomeEventFetchUser extends HomeEvent{}
+
+class HomeEventFetchAllPosts extends HomeEvent{}
+
 
 @immutable
 class HomeEventCreatePost extends HomeEvent{

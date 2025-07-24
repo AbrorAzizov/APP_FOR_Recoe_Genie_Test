@@ -1,5 +1,4 @@
 
-import 'dart:io';
 
 import 'package:flutter/foundation.dart' show immutable;
 import 'dart:typed_data';
@@ -21,7 +20,7 @@ class HomeEventCreatePost extends HomeEvent{
   final String? imagePath;
   final Uint8List? imageBytes;
 
-  HomeEventCreatePost(this.imagePath, this.imageBytes, {required this.post, File? imagePath );
+  HomeEventCreatePost({this.imagePath, this.imageBytes, required this.post});
 }
 
 class HomeEventDeletePost extends HomeEvent{

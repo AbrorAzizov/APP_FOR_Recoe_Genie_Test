@@ -33,6 +33,8 @@ class AuthRepoImp implements AuthRepo {
       );
 
       if (userCredential.user == null) {
+        debugPrint("User not found");
+
         return Left("User not found");
       }
 
@@ -55,12 +57,14 @@ class AuthRepoImp implements AuthRepo {
         return Left("User not found");
       }
 
+      final _userUid = _auth.currentUser!.uid;
       await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).set({
         'email': user.email,
-        'name': user.name,
+        'name': user.name ?? '0',
         'created_at': Timestamp.now(),
-        'uid': FirebaseAuth.instance.currentUser
+        'uid': _userUid
       });
+
       debugPrint('fire');
       return Right(unit);
     } on FirebaseAuthException catch (e) {

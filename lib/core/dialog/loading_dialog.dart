@@ -26,7 +26,7 @@ class Loading extends StatelessWidget {
         ),
         child: const Center(
           child: SpinKitCubeGrid(
-            color: Colors.indigoAccent,
+            color: Colors.deepPurpleAccent,
             size: 50,
           ),
         ),

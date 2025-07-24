@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
 
 import 'package:qolber_clean_arc/features/home/domain/entities/post.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';

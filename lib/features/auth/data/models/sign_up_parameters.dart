@@ -1,10 +1,9 @@
-import '../../domain/entity/user_entity.dart';
 
 class UserModel {
   final String password;
   final String email;
   final String? name;
-  final String? uid; // теперь uid nullable
+  final String? uid;
 
   UserModel({
     required this.password,
@@ -18,16 +17,16 @@ class UserModel {
       'email': email,
       'password': password,
       'name': name,
-      'uid': uid, // добавлен
+      'uid': uid,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> e) {
     return UserModel(
       password: e['password'],
-      email: e['email'],
+      email: e['email']as String,
       name: e['name'],
-      uid: e['uid'], // может быть null
+      uid: e['uid'],
     );
   }
 

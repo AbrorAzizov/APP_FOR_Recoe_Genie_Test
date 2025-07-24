@@ -51,7 +51,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
       if (kIsWeb) {
         webImage = files.bytes;
       } else {
-        fileImage = File(files.path!);
+        fileImage = files.path!;
       }
     }
   }

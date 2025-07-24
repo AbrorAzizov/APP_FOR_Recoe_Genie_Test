@@ -1,12 +1,15 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
+
 import 'package:qolber_clean_arc/features/home/domain/entities/post.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
 
 import '../../../../core/errors/firestore_failure.dart';
 import '../../../../servise_locator.dart';
+import '../../../auth/data/models/sign_up_parameters.dart';
 import '../source/firebase_data_serice.dart';
 
 class FireBasePostRepoImp implements PostRepo {
@@ -32,10 +35,21 @@ class FireBasePostRepoImp implements PostRepo {
   }
 
   @override
-  Future<String?> getUserId() async {
-    final user = FirebaseAuth.instance.currentUser;
-    return user?.uid; // returns uid or null if not logged in
+  Future<UserModel> getUser() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    final doc = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(currentUser!.uid)
+        .get();
+
+    final data = doc.data()!;
+    return UserModel.fromMap(data);
+
   }
+
+
+
 
 
 

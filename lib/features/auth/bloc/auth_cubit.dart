@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_state.dart';
 
 import '../../../servise_locator.dart';
@@ -50,6 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthStateLoggedIn());
       });
     } catch (e) {
+      debugPrint('$e');
       emit(AuthStateError(authError: "$e"));
     }
   }

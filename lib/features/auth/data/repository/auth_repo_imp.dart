@@ -59,6 +59,7 @@ class AuthRepoImp implements AuthRepo {
         'email': user.email,
         'name': user.name,
         'created_at': Timestamp.now(),
+        'uid': FirebaseAuth.instance.currentUser
       });
       debugPrint('fire');
       return Right(unit);

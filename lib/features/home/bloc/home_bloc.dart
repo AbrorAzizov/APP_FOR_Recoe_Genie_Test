@@ -14,17 +14,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeStateInitial()) {
     on<HomeEventCreatePost>(_onHomeEventCreatePost);
     on<HomeEventDeletePost>(_onHomeEventDeletePost);
-    on<HomeEventFetchUser>(_onHomeEventFetchUser);
     on<HomeEventFetchAllPosts>(_onHomeEventFetchAllPosts);
   }
 
-  Future<void> _onHomeEventFetchUser(
-    HomeEventFetchUser event,
-    Emitter<HomeState> emit,
-  ) async {
-    emit(HomeStateLoading());
-    final response = sl<PostRepo>().getUserId();
-  }
+
+
 
   Future<void> _onHomeEventFetchAllPosts(
     HomeEventFetchAllPosts event,
@@ -44,12 +38,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEventDeletePost event,
     Emitter<HomeState> emit,
   ) async {
+
     final response = await postRepo.deletePost(event.postId);
 
     response.fold(
       (l) => emit(HomeStateError(failure: l)),
-      (r) {
-      _on
+      (r) { return null;
       },
     );
   }
@@ -75,7 +69,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final result = await postRepo.createPost(newPost);
     result.fold(
       (error) => HomeStateError(failure: error),
-      (data) => emit(HomeStateLoaded()),
+      (data) => null ,
     );
   }
 }

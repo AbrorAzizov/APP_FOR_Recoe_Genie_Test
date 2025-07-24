@@ -4,10 +4,10 @@ import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_state.dart';
 import 'package:qolber_clean_arc/features/auth/pages/signup_page.dart';
-import 'package:qolber_clean_arc/features/home/view/home_page.dart';
 
 import '../../../core/dialog/error_dialog.dart';
 import '../../../core/errors/firebase_auth_errors.dart';
+import '../../home/view/create_post_page.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({super.key});
@@ -19,12 +19,19 @@ class AuthView extends StatelessWidget {
          return SignUpPage();
        }
        if  (state is AuthStateLoggedIn){
-         return HomePage();
+         return CreatePostPage();
        }
        return Container();
     }, listener: (context, state) {
       if (state is AuthStateLoading) {
-        Loading();
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return const Loading();
+          },
+
+        );
       }
       if (state is AuthStateError) {
         showFirebaseErrorDialog(

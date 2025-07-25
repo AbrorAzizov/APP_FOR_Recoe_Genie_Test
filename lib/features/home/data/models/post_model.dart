@@ -1,22 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/post.dart';
 
-class PostModel {
-  final String userId;
-  final String userName; // ← Add this
-  final String postText;
-  final String id;
-  final String? imageUrl;
-  final DateTime timestamp;
-  final double price;
-
+class PostModel extends Post{
   PostModel({
-    required this.userId,
-    required this.userName,
-    required this.postText,
-    required this.id,
-    this.imageUrl,
-    required this.timestamp,
-    required this.price,
+    required super.userId,
+    required super.userName,
+    required super.postText,
+    required super.id,
+    super.imageUrl,
+    required super.timestamp,
+    required super.price,
   });
 
   Post toEntity() {
@@ -51,7 +45,8 @@ class PostModel {
       id: json['id'],
       imageUrl: json['imageUrl'],
       timestamp: DateTime.parse(json['timestamp']),
-      price: (json['price'] as num).toDouble(),
+      price: (json['price'] ?? 0).toDouble(),
+
     );
   }
 
@@ -62,7 +57,7 @@ class PostModel {
       'postText': postText,
       'id': id,
       'imageUrl': imageUrl,
-      'timestamp': timestamp.toIso8601String(),
+      'timestamp': Timestamp.fromDate(timestamp),
       'price': price,
     };
   }

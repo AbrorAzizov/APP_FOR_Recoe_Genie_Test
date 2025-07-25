@@ -2,11 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:qolber_clean_arc/features/home/data/models/post_model.dart';
 
 import '../../../../core/errors/firestore_failure.dart';
-import '../../../../servise_locator.dart';
+
 import '../../domain/entities/post.dart';
 
 abstract class FireBaseDataService {
@@ -18,10 +19,9 @@ abstract class FireBaseDataService {
 
 
 class FireBaseDataServiceImp implements FireBaseDataService {
-  final FirebaseFirestore fireStore = sl<FirebaseFirestore>();
-  final storage = FirebaseStorage.instance;
 
-  late final CollectionReference postCollection = fireStore.collection('post');
+
+   final CollectionReference postCollection = FirebaseFirestore.instance.collection('post');
 
   @override
   Future<Either<FireStoreFailure, Unit>> createPost(Post post) async {
@@ -30,7 +30,8 @@ class FireBaseDataServiceImp implements FireBaseDataService {
       await postCollection.doc(post.id).set(postModel.toJson());
       return Right(unit);
     } on FirebaseException catch (e) {
-      return Left(FireStoreFailure.fromExeption(e));
+      debugPrint('$e');
+      return Left(FireStoreFailure.fromExeption(e.code));
     }
   }
 
@@ -41,7 +42,7 @@ class FireBaseDataServiceImp implements FireBaseDataService {
       await postCollection.doc(postId).delete();
       return Right(unit);
     } on FirebaseException catch (e) {
-      return Left(FireStoreFailure.fromExeption(e));
+      return Left(FireStoreFailure.fromExeption(e.code));
     }
   }
 
@@ -57,7 +58,7 @@ class FireBaseDataServiceImp implements FireBaseDataService {
 
       return Right(postList);
     } on FirebaseException catch (error) {
-      return Left(FireStoreFailure.fromExeption(error));
+      return Left(FireStoreFailure.fromExeption(error.code));
     }
   }
 
@@ -73,7 +74,7 @@ class FireBaseDataServiceImp implements FireBaseDataService {
 
       return Right(postList);
     } on FirebaseException catch (error) {
-      return Left(FireStoreFailure.fromExeption(error));
+      return Left(FireStoreFailure.fromExeption(error.code));
     }
   }
 

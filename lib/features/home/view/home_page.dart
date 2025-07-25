@@ -1,10 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_event.dart';
 import 'package:qolber_clean_arc/features/home/view/create_post_page.dart';
-
-import '../../../servise_locator.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -19,13 +15,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-     fetchUser();
+
   }
 
-  void fetchUser () {
-   final homeBloc = sl<HomeBloc>();
-    final currentUser = homeBloc.add(HomeEventFetchUser());
-  }
+
 
   @override
   Widget build(BuildContext context) {

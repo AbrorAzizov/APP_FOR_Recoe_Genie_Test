@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show immutable;
 
 
 const Map<String, AuthError> authErrorMapping = {
-  'user-not-found': AuthErrorUserNotFound(),
+  'The supplied auth credential is incorrect, malformed or has expired.': AuthErrorUserNotFound(),
   'weak-password': AuthErrorWeakPassword(),
   'invalid-email': AuthErrorInvalidEmail(),
   'email-already-in-use': AuthErrorEmailAlreadyInUse(),

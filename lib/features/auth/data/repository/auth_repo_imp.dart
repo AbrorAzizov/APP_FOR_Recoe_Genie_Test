@@ -4,7 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/repo/auth_repo.dart';
-import '../models/sign_up_parameters.dart';
+import '../models/signin_params.dart';
+import '../models/signup_params.dart';
 
 class AuthRepoImp implements AuthRepo {
   final _auth = FirebaseAuth.instance;
@@ -25,7 +26,7 @@ class AuthRepoImp implements AuthRepo {
   }
 
   @override
-  Future<Either<String, Unit>> signIn(UserModel user) async {
+  Future<Either<String, Unit>> signIn(SignInParameters user) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
         email: user.email,
@@ -45,7 +46,7 @@ class AuthRepoImp implements AuthRepo {
   }
 
   @override
-  Future<Either<String, Unit>> signUp(UserModel user) async {
+  Future<Either<String, Unit>> signUp(SignUpParameters user) async {
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
         email: user.email,
@@ -60,7 +61,7 @@ class AuthRepoImp implements AuthRepo {
       final _userUid = _auth.currentUser!.uid;
       await FirebaseFirestore.instance.collection('user').doc(currentUser.uid).set({
         'email': user.email,
-        'name': user.name ?? '0',
+        'username': user.username,
         'created_at': Timestamp.now(),
         'uid': _userUid
       });

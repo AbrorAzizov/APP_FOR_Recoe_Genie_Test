@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:qolber_clean_arc/features/home/bloc/home_event.dart';
@@ -25,9 +24,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(HomeStateLoading());
-    final response = await sl<PostRepo>().fetchAllPost();
+    final response = await postRepo.fetchAllPost();
     response.fold(
-      (error) => HomeStateError(failure: error),
+          (error) => emit(HomeStateError(failure: error)),
       (posts) {
         emit(HomeStateLoaded(posts: posts));
       },
@@ -52,23 +51,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEventCreatePost event,
     Emitter<HomeState> emit,
   ) async {
-    String? imageUrl;
-
     emit(HomeStateLoading());
-    if (event.imagePath != null) {
-      imageUrl =
-          await storageRepo.uploadPostImageMob(event.imagePath!, event.post.id);
-    }
-
-    if (event.imageBytes != null) {
-      imageUrl = await storageRepo.uploadPostImageWeb(
-          event.imageBytes as Uint8List, event.post.id);
-    }
-
-    final newPost = event.post.copyWith(imageUrl: imageUrl);
-    final result = await postRepo.createPost(newPost);
+    final result = await postRepo.createPost(event.post);
     result.fold(
-      (error) => HomeStateError(failure: error),
+          (error) => emit(HomeStateError(failure: error)),
       (data) => null ,
     );
   }

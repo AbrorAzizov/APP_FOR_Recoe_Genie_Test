@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:qolber_clean_arc/core/errors/firestore_failure.dart';
 
 import '../domain/storage_repo.dart';
 
@@ -25,7 +26,7 @@ class FirebaseStorageRepo implements StorageRepo{
       final uploadImage = await storageRef.putFile(file);
       final imageUrl = uploadImage.ref.getDownloadURL();
       return imageUrl;
-    }catch (e){
+    } on FireStoreFailure catch (e){
       debugPrint('$e') ;
       return null;
     }

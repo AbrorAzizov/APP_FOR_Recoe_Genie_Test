@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:qolber_clean_arc/features/auth/data/models/sign_up_parameters.dart';
+import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
 import '../../../servise_locator.dart';
 import '../bloc/home_bloc.dart';
@@ -27,18 +26,21 @@ class _CreatePostPageState extends State<CreatePostPage> {
   Uint8List? webImage;
   File? fileImage;
 
-  UserModel? userEntity;
+  UserEntity? userEntity;
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     _loadUser();
   }
 
   Future<void> _loadUser() async {
-    userEntity = (await sl<PostRepo>().getUser()) as UserModel?;
+    userEntity = await sl<PostRepo>().getUser();
+    print('got user');
+
     setState(() {});
   }
+
 
   Future<void> _pickImage() async {
     final result = await FilePicker.platform.pickFiles(
@@ -58,31 +60,48 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   Future<void> _uploadPost() async {
 
-    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}';
     String? imageUrl;
 
     final storage = sl<StorageRepo>();
 
     if (kIsWeb) {
-      imageUrl = await storage.uploadPostImageWeb(webImage!, fileName);
+      if(webImage != null){
+        imageUrl = await storage.uploadPostImageWeb(webImage!, fileName);
+      }
     } else {
-      imageUrl = await storage.uploadPostImageMob(fileImage!.path, fileName);
+      if(fileImage != null ){
+        imageUrl = await storage.uploadPostImageMob(fileImage!.path, fileName);
+      }
     }
 
+
+    if (userEntity == null) {
+      print("userEntity is null");
+
+    }
+    if (kIsWeb && webImage == null) {
+      print("webImage is null");
+
+    }
+    if (!kIsWeb && fileImage == null) {
+      print("fileImage is null");
+
+    }
 
 
     final newPost = Post(
       id: fileName,
-      userId: userEntity!.uid.toString(),
-      userName: userEntity!.name.toString(),
+      userId: userEntity!.uid,
+      userName: userEntity!.username,
       imageUrl: imageUrl,
       timestamp: DateTime.now(),
       postText: postTextController.text,
       price: double.tryParse(priceController.text) ?? 0.0,
     );
-
+    print(" new post null");
     homeBloc.add(HomeEventCreatePost(
-        post: newPost, imagePath: imageUrl, imageBytes: webImage));
+        post: newPost));
   }
 
   @override
@@ -100,6 +119,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text('Put Image (Optional)',style: TextStyle(fontSize: 24),),
               Align(
                 alignment: Alignment.center,
                 child: _imagePreview(),
@@ -173,7 +193,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 height: 50,
                 child: Center(
                   child: Text("Upload",
-                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),),
                 ),
               )
             ],

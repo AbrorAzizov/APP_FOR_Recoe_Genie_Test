@@ -2,7 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
-import 'package:qolber_clean_arc/features/auth/data/models/sign_up_parameters.dart';
+
+import 'package:qolber_clean_arc/features/auth/data/models/signin_params.dart';
 import 'package:qolber_clean_arc/features/auth/pages/signup_page.dart';
 
 
@@ -157,7 +158,7 @@ class _SignInState extends State<SignIn> {
                         onPressed: () {
                           final email = _emailController.text.trim();
                           final password = _passwordController.text.trim();
-                         context.read<AuthCubit>().signIn(UserModel(password: password, email: email));
+                         context.read<AuthCubit>().signIn(SignInParameters(password: password, email: email));
                         },
                         color: Color.fromRGBO(49, 39, 79, 1),
                         shape: RoundedRectangleBorder(

@@ -14,29 +14,32 @@ class AuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(builder: (context, state) {
-       if (state is AuthStateSignup){
-         return SignUpPage();
-       }
-       if  (state is AuthStateLoggedIn){
-         return CreatePostPage();
-       }
-       return Container();
-    }, listener: (context, state) {
-      if (state is AuthStateLoading) {
-        showDialog(
-          context: context,
-          barrierDismissible: true,
-          builder: (BuildContext context) {
-            return const Loading();
-          },
+    return BlocConsumer<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthStateSignup) {
+          return SignUpPage();
+        }
+        if (state is AuthStateLoggedIn) {
+          return CreatePostPage();
+        }
+        return Container();
+      },
+      listener: (context, state) {
+        if (state is AuthStateLoading) {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return const Loading();
+            },
+          );
+        }
 
-        );
-      }
-      if (state is AuthStateError) {
-        showFirebaseErrorDialog(
-            context: context, authError: AuthError.from(state.authError));
-      }
-    },);
+        if (state is AuthStateError) {
+          showFirebaseErrorDialog(
+              context: context, authError: AuthError.from(state.authError));
+        }
+      },
+    );
   }
 }

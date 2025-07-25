@@ -1,12 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:qolber_clean_arc/core/errors/firestore_failure.dart';
 
 
 import '../errors/firebase_auth_errors.dart';
 
 Future<void> showFirebaseErrorDialog({
   required BuildContext context,
-  required AuthError authError,
+   AuthError? authError,
+  FireStoreFailure? firestoreFailure
 }) {
   return showGeneralDialog<void>(
     context: context,
@@ -26,11 +28,11 @@ Future<void> showFirebaseErrorDialog({
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  authError.title,
+                  authError?.title ?? firestoreFailure!.title,
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
-                Text(authError.message),
+                Text(authError?.message ?? firestoreFailure!.message),
                 const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,

@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_state.dart';
 
 import '../../../servise_locator.dart';
-import '../data/models/sign_up_parameters.dart';
+
+import '../data/models/signin_params.dart';
+import '../data/models/signup_params.dart';
 import '../data/repository/auth_repo_imp.dart';
 import '../domain/repo/auth_repo.dart';
 
@@ -27,33 +28,27 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
 
-  Future<void> sigUp(UserModel user) async {
+  Future<void> sigUp(SignUpParameters param) async {
     emit(AuthStateLoading());
-    try {
-      Either response = await sl<AuthRepo>().signUp(user);
+
+      Either response = await sl<AuthRepo>().signUp(param);
       response.fold((error) {
         emit(AuthStateError(authError: error));
       }, (data) {
         emit(AuthStateLoggedIn());
       });
-    } catch (e) {
-      emit(AuthStateError(authError: "$e"));
-    }
   }
 
-  Future<void> signIn(UserModel userModel) async {
+  Future<void> signIn(SignInParameters params) async {
     emit(AuthStateLoading());
-    try {
-      Either response = await sl<AuthRepo>().signIn(userModel);
+
+      Either response = await sl<AuthRepo>().signIn(params);
       response.fold((error) {
         emit(AuthStateError(authError: error));
       }, (data) {
         emit(AuthStateLoggedIn());
       });
-    } catch (e) {
-      debugPrint('$e');
-      emit(AuthStateError(authError: "$e"));
-    }
+
   }
 
 }

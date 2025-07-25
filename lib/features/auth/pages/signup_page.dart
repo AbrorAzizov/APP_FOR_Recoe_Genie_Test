@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
-import 'package:qolber_clean_arc/features/auth/data/models/sign_up_parameters.dart';
 import 'package:qolber_clean_arc/features/auth/pages/login_page.dart';
+
+import '../data/models/signup_params.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -100,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         final name = _nameController.text.trim();
                         final email = _emailController.text.trim();
                         final password = _passwordController.text.trim();
-                        context.read<AuthCubit>().sigUp(UserModel(password: password, email: email,name: name));
+                        context.read<AuthCubit>().sigUp(SignUpParameters(password: password, email: email,username: name));
                       },
                       height: 50,
                       color: Color.fromRGBO(49, 39, 79, 1),

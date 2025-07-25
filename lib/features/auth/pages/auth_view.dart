@@ -4,10 +4,9 @@ import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_state.dart';
 import 'package:qolber_clean_arc/features/auth/pages/signup_page.dart';
-
 import '../../../core/dialog/error_dialog.dart';
 import '../../../core/errors/firebase_auth_errors.dart';
-import '../../home/view/create_post_page.dart';
+import '../../home/view/home_view.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({super.key});
@@ -19,12 +18,17 @@ class AuthView extends StatelessWidget {
         if (state is AuthStateSignup) {
           return SignUpPage();
         }
+
         if (state is AuthStateLoggedIn) {
-          return CreatePostPage();
+          return HomeView();
         }
         return Container();
       },
       listener: (context, state) {
+        if (state is! AuthStateLoading && ModalRoute.of(context)?.isCurrent != true) {
+          Navigator.of(context).pop();
+        }
+
         if (state is AuthStateLoading) {
           showDialog(
             context: context,

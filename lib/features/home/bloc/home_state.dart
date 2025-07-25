@@ -24,6 +24,8 @@ class HomeStateLoaded extends HomeState{
 @immutable
 class HomeStateInitial extends HomeState{}
 
+
+
 @immutable
 class HomeStateError extends HomeState {
   final FireStoreFailure failure;

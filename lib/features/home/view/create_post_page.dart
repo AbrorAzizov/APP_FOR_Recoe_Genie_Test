@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
+import 'package:qolber_clean_arc/features/home/view/home_page.dart';
 import '../../../servise_locator.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_event.dart';
@@ -102,6 +103,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
     print(" new post null");
     homeBloc.add(HomeEventCreatePost(
         post: newPost));
+
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => HomePage()),
+    );
+
   }
 
   @override
@@ -117,7 +124,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+
             children: [
               Text('Put Image (Optional)',style: TextStyle(fontSize: 24),),
               Align(
@@ -211,7 +218,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         decoration: BoxDecoration(
 
           borderRadius: BorderRadius.circular(12),
-          color:  Color.fromRGBO(49, 39, 79, 1),
+          color:  Color.fromRGBO(49, 39, 79, 1).withOpacity(0.8),
 
           boxShadow: [
             BoxShadow(

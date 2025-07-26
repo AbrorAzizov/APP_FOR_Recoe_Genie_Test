@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart' show immutable;
 
 
 const Map<String, AuthError> authErrorMapping = {
-  'The supplied auth credential is incorrect, malformed or has expired.': AuthErrorUserNotFound(),
+  'The supplied auth credential is incorrect, malformed or has expired': AuthErrorUserNotFound(),
   'weak-password': AuthErrorWeakPassword(),
-  'invalid-email': AuthErrorInvalidEmail(),
-  'email-already-in-use': AuthErrorEmailAlreadyInUse(),
+  'auth/invalid-email': AuthErrorInvalidEmail(),
+  'auth/email-already-exists': AuthErrorEmailAlreadyInUse(),
   'operation-not-allowed': AuthErrorOperationNotAllowed(),
   'requires-recent-login': AuthErrorRequiresRecentLogin(),
   'no-current-user': AuthErrorNoCurrentUser(),

@@ -6,7 +6,7 @@ import '../../../servise_locator.dart';
 
 import '../data/models/signin_params.dart';
 import '../data/models/signup_params.dart';
-import '../data/repository/auth_repo_imp.dart';
+
 import '../domain/repo/auth_repo.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -14,8 +14,8 @@ class AuthCubit extends Cubit<AuthState> {
 
 
   Future<void> signOut() async {
-    final response = await sl<AuthRepoImp>().logout();
-    response.fold((error) => AuthStateError(authError: error), (r) => AuthStateSignOut(),);
+    final response = await sl<AuthRepo>().logout();
+    response.fold((error) =>emit( AuthStateError(authError: error)), (r) => emit(LoggedOut()),);
   }
 
   Future<void> initialize() async {
@@ -23,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
     if (isLoggedIn) {
       emit(AuthStateLoggedIn());
     } else {
-      emit(AuthStateSignup());
+      emit(LoggedOut());
     }
   }
 

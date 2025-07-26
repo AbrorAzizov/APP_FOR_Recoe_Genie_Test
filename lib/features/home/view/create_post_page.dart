@@ -38,7 +38,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
     userEntity = await sl<PostRepo>().getUser();
     print('got user');
 
-    setState(() {});
   }
 
 
@@ -112,7 +111,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
           centerTitle: true,
           title: Text('Create Post'),
           leading:
-              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios))),
+              IconButton(onPressed: () {
+                Navigator.of(context).pop();
+              }, icon: Icon(Icons.arrow_back_ios))),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(

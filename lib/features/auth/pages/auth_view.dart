@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_state.dart';
 import 'package:qolber_clean_arc/features/auth/pages/signup_page.dart';
@@ -15,7 +14,7 @@ class AuthView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       builder: (context, state) {
-        if (state is AuthStateSignup) {
+        if (state is LoggedOut) {
           return SignUpPage();
         }
 
@@ -29,15 +28,7 @@ class AuthView extends StatelessWidget {
           Navigator.of(context).pop();
         }
 
-        if (state is AuthStateLoading) {
-          showDialog(
-            context: context,
-            barrierDismissible: true,
-            builder: (BuildContext context) {
-              return const Loading();
-            },
-          );
-        }
+
 
         if (state is AuthStateError) {
           showFirebaseErrorDialog(

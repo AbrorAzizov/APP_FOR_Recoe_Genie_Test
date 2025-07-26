@@ -19,15 +19,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
 
 
+
   Future<void> _onHomeEventFetchAllPosts(
-    HomeEventFetchAllPosts event,
-    Emitter<HomeState> emit,
-  ) async {
+      HomeEventFetchAllPosts event,
+      Emitter<HomeState> emit,
+      ) async {
     emit(HomeStateLoading());
     final response = await postRepo.fetchAllPost();
     response.fold(
           (error) => emit(HomeStateError(failure: error)),
-      (posts) {
+          (posts) {
         emit(HomeStateLoaded(posts: posts));
       },
     );
@@ -48,14 +49,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onHomeEventCreatePost(
-    HomeEventCreatePost event,
-    Emitter<HomeState> emit,
-  ) async {
+      HomeEventCreatePost event,
+      Emitter<HomeState> emit,
+      ) async {
     emit(HomeStateLoading());
     final result = await postRepo.createPost(event.post);
+
+
     result.fold(
-          (error) => emit(HomeStateError(failure: error)),
-      (data) =>  emit(HomeStateInitial())
+            (error) => emit(HomeStateError(failure: error)),
+            (data) =>  emit(HomeStateInitial())
     );
   }
 }

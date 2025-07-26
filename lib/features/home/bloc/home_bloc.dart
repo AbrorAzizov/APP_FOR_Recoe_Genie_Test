@@ -55,7 +55,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final result = await postRepo.createPost(event.post);
     result.fold(
           (error) => emit(HomeStateError(failure: error)),
-      (data) =>  null
+      (data) =>  emit(HomeStateInitial())
     );
   }
 }

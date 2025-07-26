@@ -44,7 +44,7 @@ class PostModel extends Post{
       postText: json['postText'],
       id: json['id'],
       imageUrl: json['imageUrl'],
-      timestamp: DateTime.parse(json['timestamp']),
+      timestamp: (json['timestamp']as Timestamp).toDate(),
       price: (json['price'] ?? 0).toDouble(),
 
     );

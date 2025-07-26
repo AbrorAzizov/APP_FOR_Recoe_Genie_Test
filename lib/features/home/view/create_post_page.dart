@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
-import 'package:qolber_clean_arc/features/home/view/home_page.dart';
 import '../../../servise_locator.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_event.dart';
@@ -101,13 +100,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
       price: double.tryParse(priceController.text) ?? 0.0,
     );
     print(" new post null");
-    homeBloc.add(HomeEventCreatePost(
+     homeBloc.add(HomeEventCreatePost(
         post: newPost));
-
-
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => HomePage()),
-    );
 
   }
 

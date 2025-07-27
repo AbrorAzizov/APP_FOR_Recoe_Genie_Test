@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
+import 'package:qolber_clean_arc/features/cart/cubit/cart_cubit.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_event.dart';
 
 import '../domain/entities/post.dart';
 
@@ -76,9 +80,22 @@ class PostWidget extends StatelessWidget {
                 ),
               ],
             ),
-            subtitle: Text(
-              post.postText ,
-              style: const TextStyle(fontSize: 15),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  post.postText ,
+                  style: const TextStyle(fontSize: 15),
+                ),
+                Row(
+                  children: [
+                    IconButton(onPressed: () =>context.read<HomeBloc>().add(HomeEventDeletePost(postId: post.id)) , icon: Icon(Icons.delete,color: Colors.red,)),
+                    SizedBox(width: 10,),
+                    IconButton(onPressed: () =>context.read<CartCubit>().addItem(post) , icon: Icon(Icons.card_travel,color: Colors.amber,)),
+
+                  ],
+                )
+              ],
             ),
           ),
 

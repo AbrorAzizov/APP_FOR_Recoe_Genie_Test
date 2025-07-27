@@ -43,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     response.fold(
       (l) => emit(HomeStateError(failure: l)),
-      (r) { return null;
+      (r) { emit(HomeStateInitial());
       },
     );
   }

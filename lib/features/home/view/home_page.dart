@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
-import 'package:qolber_clean_arc/features/cart/view/cart_page.dart';
 import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
 import 'package:qolber_clean_arc/features/home/bloc/home_state.dart';
 import 'package:qolber_clean_arc/features/home/view/create_post_page.dart';
@@ -26,12 +25,7 @@ class _HomePageState extends State<HomePage> {
             centerTitle: true,
             title: Text("Welcome"),
             actions: [
-              IconButton( onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => CartPage()),
-                );
-              },
-                  icon: Icon(Icons.shopping_cart_outlined, color: Colors.deepPurpleAccent)),
+
               IconButton(
                   onPressed: () => context.read<AuthCubit>().signOut(),
                   icon: Icon(Icons.exit_to_app_rounded))

@@ -4,7 +4,6 @@ import 'package:qolber_clean_arc/features/auth/bloc/auth_cubit.dart';
 import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
 import 'package:qolber_clean_arc/servise_locator.dart';
 
-import 'features/cart/cubit/cart_cubit.dart';
 
 class Injection extends StatelessWidget {
   final Widget child;
@@ -22,9 +21,7 @@ class Injection extends StatelessWidget {
         BlocProvider<HomeBloc>(
           create: (context) => sl<HomeBloc>(),
         ),
-        BlocProvider<CartCubit>(
-          create: (context) => sl<CartCubit>(),
-        )
+
       ],
       child: child,
     );

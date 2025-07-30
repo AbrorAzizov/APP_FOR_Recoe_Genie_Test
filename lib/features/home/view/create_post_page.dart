@@ -117,7 +117,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(10),
           child: Column(
 
             children: [

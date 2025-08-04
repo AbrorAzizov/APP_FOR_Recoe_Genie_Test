@@ -2,19 +2,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:intl/intl.dart';
+
 import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_event.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc/home_bloc.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc/home_event.dart';
 
 import '../../../core/dialog/delete_dialog.dart';
 import '../domain/entities/post.dart';
 
 class PostWidget extends StatelessWidget {
   final Post post;
+  final isMyPost;
 
   const PostWidget({
     super.key,
     required this.post,
+    required this.isMyPost,
+
   });
 
   @override
@@ -48,12 +53,14 @@ class PostWidget extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              IconButton(onPressed:() async {
-                bool result =  await showDeleteConfirmationDialog(context);
-                if(result){
-                  return context.read<HomeBloc>().add(HomeEventDeletePost(postId: post.id));
-                }
-              } , icon: Icon(Icons.delete))
+              if(isMyPost)
+                IconButton(onPressed: () async {
+                  bool result = await showDeleteConfirmationDialog(context);
+                  if (result) {
+                    return context.read<HomeBloc>().add(
+                        HomeEventDeletePost(postId: post.id));
+                  }
+                }, icon: Icon(Icons.delete))
             ],
           ),
           if (post.imageUrl != null) ...[
@@ -74,15 +81,18 @@ class PostWidget extends StatelessWidget {
           SizedBox(width: 5,),
           Row(
             children: [
-              IconButton(onPressed: () async{},
+              IconButton(onPressed: () async {},
                   icon: Icon(Icons.heart_broken, color: Colors.grey,)),
               SizedBox(width: 3,),
-              Text('0'),
+              Text(post.postLikes.length.toString()),
               SizedBox(width: 5,),
               IconButton(onPressed: () {},
                   icon: Icon(Icons.message, color: Colors.grey,)),
               SizedBox(width: 3,),
               Text('0'),
+              Spacer(),
+              Text(DateFormat('dd MMM yyyy, HH:mm').format(post.timestamp))
+
             ],
           )
         ],

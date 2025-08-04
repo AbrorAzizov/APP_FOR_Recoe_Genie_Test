@@ -3,15 +3,16 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
-import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
 import '../../../servise_locator.dart';
-import '../bloc/home_bloc.dart';
-import '../bloc/home_event.dart';
+import '../bloc/home_bloc/home_bloc.dart';
+import '../bloc/home_bloc/home_event.dart';
 import '../domain/entities/post.dart';
 import '../storage/domain/storage_repo.dart';
 
 class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({super.key});
+  final UserEntity userEntity;
+
+  const CreatePostPage({super.key, required this.userEntity});
 
   @override
   State<CreatePostPage> createState() => _CreatePostPageState();
@@ -26,19 +27,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   Uint8List? webImage;
   File? fileImage;
 
-  UserEntity? userEntity;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadUser();
-  }
-
-  Future<void> _loadUser() async {
-    userEntity = await sl<PostRepo>().getUser();
-    print('got user');
-
-  }
 
 
   Future<void> _pickImage() async {
@@ -74,11 +63,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
       }
     }
 
+    final userEntity = widget.userEntity;
 
-    if (userEntity == null) {
-      print("userEntity is null");
 
-    }
+
     if (kIsWeb && webImage == null) {
       print("webImage is null");
 
@@ -91,12 +79,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
     final newPost = Post(
       id: fileName,
-      userId: userEntity!.uid,
-      userName: userEntity!.username,
+      userId: userEntity.uid,
+      userName: userEntity.username,
       imageUrl: imageUrl,
       timestamp: DateTime.now(),
       postText: postTextController.text,
-      price: double.tryParse(priceController.text) ?? 0.0,
+      postLikes:  [],
     );
     print(" new post null");
      homeBloc.add(HomeEventCreatePost(
@@ -166,15 +154,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       offset: Offset(0, 10),
                     ),
                   ],
-                ),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  controller: priceController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Price charge',
-                    hintStyle: TextStyle(color: Colors.grey.shade700),
-                  ),
                 ),
               ),
               SizedBox(height: 250,),

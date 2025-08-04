@@ -65,6 +65,14 @@ class FireBasePostRepoImp implements PostRepo {
     }
   }
 
+  @override
+  Future<void> toggleLike(String postId, String userId) {
+    // TODO: implement toggleLike
+    throw UnimplementedError();
+  }
+
+
+
 
 
 

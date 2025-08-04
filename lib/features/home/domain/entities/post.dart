@@ -1,10 +1,9 @@
-
 class Post {
   final String id;
   final String userId;
   final String userName;
   final String? imageUrl;
-  final double price;
+  final List<String> postLikes;
   final DateTime timestamp;
   final String postText;
 
@@ -13,7 +12,7 @@ class Post {
     required this.userId,
     required this.userName,
     this.imageUrl,
-    required this.price,
+    required this.postLikes,
     required this.timestamp,
     required this.postText,
   });
@@ -23,7 +22,7 @@ class Post {
     String? userId,
     String? userName,
     String? imageUrl,
-    double? price,
+    List<String>? price, // Updated type
     DateTime? timestamp,
     String? postText,
   }) {
@@ -32,7 +31,7 @@ class Post {
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       imageUrl: imageUrl ?? this.imageUrl,
-      price: price ?? this.price,
+      postLikes: price ?? this.postLikes, // Updated field
       timestamp: timestamp ?? this.timestamp,
       postText: postText ?? this.postText,
     );

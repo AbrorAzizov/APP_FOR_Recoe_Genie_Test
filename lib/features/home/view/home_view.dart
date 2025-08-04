@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qolber_clean_arc/core/dialog/error_dialog.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_bloc.dart';
-
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc/home_bloc.dart';
 import 'package:qolber_clean_arc/features/home/view/home_page.dart';
 import '../../../core/dialog/loading_dialog.dart';
-import '../bloc/home_event.dart';
-import '../bloc/home_state.dart';
+import '../bloc/home_bloc/home_event.dart';
+import '../bloc/home_bloc/home_state.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -21,6 +20,7 @@ class HomeView extends StatelessWidget {
 
       }
       if (state is HomeStateLoaded){
+
         return HomePage();
       }
         return Container();

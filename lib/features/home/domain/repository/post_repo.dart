@@ -13,4 +13,5 @@ abstract class PostRepo {
   Future<Either> deletePost(String postId);
   Future<Either> createPost(Post post);
   Future<Either> fetchPostByUserId (String userId);
+  Future<void> toggleLike (String postId, String userId);
 }

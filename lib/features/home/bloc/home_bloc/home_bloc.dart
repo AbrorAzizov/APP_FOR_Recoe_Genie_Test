@@ -1,10 +1,9 @@
-
 import 'package:bloc/bloc.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_event.dart';
-import 'package:qolber_clean_arc/features/home/bloc/home_state.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc/home_event.dart';
+import 'package:qolber_clean_arc/features/home/bloc/home_bloc/home_state.dart';
 import 'package:qolber_clean_arc/features/home/domain/repository/post_repo.dart';
 import 'package:qolber_clean_arc/features/home/storage/domain/storage_repo.dart';
-import '../../../servise_locator.dart';
+import '../../../../servise_locator.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final postRepo = sl<PostRepo>();
@@ -16,20 +15,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEventFetchAllPosts>(_onHomeEventFetchAllPosts);
   }
 
-
-
-
-
   Future<void> _onHomeEventFetchAllPosts(
-      HomeEventFetchAllPosts event,
-      Emitter<HomeState> emit,
-      ) async {
+    HomeEventFetchAllPosts event,
+    Emitter<HomeState> emit,
+  ) async {
     emit(HomeStateLoading());
     final response = await postRepo.fetchAllPost();
+    final  userEntity = await sl<PostRepo>().getUser();
     response.fold(
-          (error) => emit(HomeStateError(failure: error)),
-          (posts) {
-        emit(HomeStateLoaded(posts: posts));
+      (error) => emit(HomeStateError(failure: error)),
+      (posts) async {
+
+        emit(HomeStateLoaded(posts: posts,userEntity: userEntity));
       },
     );
   }
@@ -38,27 +35,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEventDeletePost event,
     Emitter<HomeState> emit,
   ) async {
-
     final response = await postRepo.deletePost(event.postId);
 
     response.fold(
       (l) => emit(HomeStateError(failure: l)),
-      (r) { emit(HomeStateInitial());
+      (r) {
+        emit(HomeStateInitial());
       },
     );
   }
 
   Future<void> _onHomeEventCreatePost(
-      HomeEventCreatePost event,
-      Emitter<HomeState> emit,
-      ) async {
+    HomeEventCreatePost event,
+    Emitter<HomeState> emit,
+  ) async {
     emit(HomeStateLoading());
     final result = await postRepo.createPost(event.post);
 
-
-    result.fold(
-            (error) => emit(HomeStateError(failure: error)),
-            (data) =>  emit(HomeStateInitial())
-    );
+    result.fold((error) => emit(HomeStateError(failure: error)),
+        (data) => emit(HomeStateInitial()));
   }
 }

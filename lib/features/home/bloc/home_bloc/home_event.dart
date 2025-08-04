@@ -3,7 +3,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'dart:typed_data';
 
-import '../domain/entities/post.dart';
+import '../../domain/entities/post.dart';
 
 @immutable
 abstract class HomeEvent {}

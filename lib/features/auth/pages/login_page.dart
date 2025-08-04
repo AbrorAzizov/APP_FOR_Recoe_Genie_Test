@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
+            SizedBox(
               height: 400,
               child: Stack(
                 children: <Widget>[

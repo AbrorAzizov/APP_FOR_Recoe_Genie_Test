@@ -3,9 +3,10 @@
 
 
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:qolber_clean_arc/features/auth/domain/entity/user_entity.dart';
 import 'package:qolber_clean_arc/features/home/domain/entities/post.dart';
 
-import '../../../core/errors/firestore_failure.dart';
+import '../../../../core/errors/firestore_failure.dart';
 
 @immutable
 abstract class HomeState {}
@@ -16,9 +17,10 @@ class HomeStateLoading extends HomeState{}
 
 @immutable
 class HomeStateLoaded extends HomeState{
+  final UserEntity userEntity;
   final List<Post> posts;
 
-  HomeStateLoaded({required this.posts});
+  HomeStateLoaded({required this.userEntity,required this.posts});
 }
 
 @immutable

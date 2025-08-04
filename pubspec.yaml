@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dio:
   cupertino_icons: ^1.0.8
   get_it: ^7.7.0
   dartz: ^0.10.1
@@ -24,7 +25,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   file_picker:
   cached_network_image:
-
+  intl:
 
 
 

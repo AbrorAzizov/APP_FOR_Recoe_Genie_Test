@@ -24,7 +24,7 @@ abstract class AuthError {
   });
 
   factory AuthError.from(String exception) {
-    debugPrint('$exception');
+    debugPrint(exception);
     final code = exception.toLowerCase().trim();
     return authErrorMapping[code] ?? const AuthErrorUnknown();
   }

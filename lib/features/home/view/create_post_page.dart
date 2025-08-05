@@ -119,12 +119,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 height: 60 ,
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromRGBO(196, 135, 198, .3)),
+                  border: Border.all(color: Colors.blueGrey),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromRGBO(196, 135, 198, .3),
+                      color: Colors.blueGrey,
                       blurRadius: 20,
                       offset: Offset(0, 10),
                     ),
@@ -144,12 +144,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 height: 50 ,
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromRGBO(196, 135, 198, .3)),
+                  border: Border.all(color:Colors.blueGrey),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromRGBO(196, 135, 198, .3),
+                      color: Colors.blueGrey,
                       blurRadius: 20,
                       offset: Offset(0, 10),
                     ),
@@ -167,7 +167,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                     _uploadPost();
                   }
                 },
-                color: Color.fromRGBO(49, 39, 79, 1),
+                color: Colors.blueGrey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
@@ -192,7 +192,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         decoration: BoxDecoration(
 
           borderRadius: BorderRadius.circular(12),
-          color:  Color.fromRGBO(49, 39, 79, 1).withOpacity(0.8),
+          color:  Colors.blueGrey.withOpacity(0.8),
 
           boxShadow: [
             BoxShadow(

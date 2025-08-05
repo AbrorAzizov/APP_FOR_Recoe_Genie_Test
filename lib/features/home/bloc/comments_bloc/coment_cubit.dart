@@ -1,15 +1,16 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:qolber_clean_arc/features/home/data/models/comment_model.dart';
+import '../../../../servise_locator.dart';
 import '../../domain/repository/coment_repo.dart';
 import 'coment_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CommentCubit extends Cubit<CommentState> {
-  final CommentRepo _commentRepo;
+  final CommentRepo _commentRepo = sl<CommentRepo>() ;
 
-  CommentCubit(this._commentRepo) : super(CommentStateInitial());
+  CommentCubit() : super(CommentStateInitial());
 
   Future<void> loadComments(String postId) async {
     emit(CommentStateLoading());

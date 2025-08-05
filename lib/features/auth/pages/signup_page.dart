@@ -27,38 +27,35 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Top Background
-            SizedBox(
-              height: 400,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: -40,
-                    width: width,
-                    height: 400,
-                    child: FadeInUp(
-                      duration: Duration(seconds: 1),
-                      child: Image.asset(
-                        'assets/images/background.png',
-                        fit: BoxFit.cover,
+            Stack(
+              children: [
+                Image.asset(
+                  'assets/images/sad_photo.jpg',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300,
+                ),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 100,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black54, // или Colors.black87 для сильнее
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: 0,
-                    width: width,
-                    height: 400,
-                    child: FadeInUp(
-                      duration: Duration(milliseconds: 1000),
-                      child: Image.asset(
-                        'assets/images/background-2.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+
 
             // Form content
             Padding(

@@ -36,40 +36,36 @@ class _SignInState extends State<SignIn> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 400,
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    top: -40,
-                    height: 400,
-                    width: width,
-                    child: FadeInUp(
-                        duration: Duration(seconds: 1),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/background.png'),
-                                  fit: BoxFit.fill)),
-                        )),
+            Stack(
+              children: [
+                Image.asset(
+                  'assets/images/sad_photo.jpg',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300,
+                ),
+
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 100,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black54, // или Colors.black87 для сильнее
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  Positioned(
-                    height: 400,
-                    width: width + 20,
-                    child: FadeInUp(
-                        duration: Duration(milliseconds: 1000),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/background-2.png'),
-                                  fit: BoxFit.fill)),
-                        )),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
+            SizedBox( height: 20,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Column(
@@ -80,7 +76,7 @@ class _SignInState extends State<SignIn> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: Color.fromRGBO(49, 39, 79, 1),
+                            color: Colors.grey,
                             fontWeight: FontWeight.bold,
                             fontSize: 30),
                       )),
@@ -94,10 +90,10 @@ class _SignInState extends State<SignIn> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                             border: Border.all(
-                                color: Color.fromRGBO(196, 135, 198, .3)),
+                                color: Colors.grey),
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromRGBO(196, 135, 198, .3),
+                                color: Colors.grey,
                                 blurRadius: 20,
                                 offset: Offset(0, 10),
                               )
@@ -109,8 +105,7 @@ class _SignInState extends State<SignIn> {
                               decoration: BoxDecoration(
                                   border: Border(
                                       bottom: BorderSide(
-                                          color: Color.fromRGBO(
-                                              196, 135, 198, .3)))),
+                                          color: Colors.blueGrey))),
                               child: TextField(
                                 controller: _emailController,
                                 decoration: InputDecoration(
@@ -147,7 +142,7 @@ class _SignInState extends State<SignIn> {
                               child: Text(
                                 "Forgot Password?",
                                 style: TextStyle(
-                                    color: Color.fromRGBO(196, 135, 198, 1)),
+                                    color: Colors.blueGrey),
                               )))),
                   SizedBox(
                     height: 30,
@@ -160,7 +155,7 @@ class _SignInState extends State<SignIn> {
                           final password = _passwordController.text.trim();
                          context.read<AuthCubit>().signIn(SignInParameters(password: password, email: email));
                         },
-                        color: Color.fromRGBO(49, 39, 79, 1),
+                        color: Colors.grey,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
@@ -186,7 +181,7 @@ class _SignInState extends State<SignIn> {
                               child: Text(
                                 "Create Account",
                                 style: TextStyle(
-                                    color: Color.fromRGBO(49, 39, 79, .6)),
+                                    color:Colors.grey),
                               )))),
                 ],
               ),

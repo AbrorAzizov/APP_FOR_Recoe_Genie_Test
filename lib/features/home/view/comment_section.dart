@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qolber_clean_arc/core/dialog/loading_dialog.dart';
 import 'package:qolber_clean_arc/features/home/data/models/comment_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -24,7 +25,6 @@ class _CommentSectionState extends State<CommentSection> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    context.read<CommentCubit>().loadComments(widget.postId);
   }
 
   @override
@@ -54,61 +54,67 @@ class _CommentSectionState extends State<CommentSection> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200], // серый фон
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: TextField(
-                    controller: _controller,
-                    decoration: const InputDecoration(
-                      hintText: 'Write a comment...',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                    ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200], // серый фон
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextField(
+                  controller: _controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Write a comment...',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
-              ElevatedButton.icon(
-                onPressed: _submitComment,
-                icon: const Icon(Icons.send),
-                label: const Text('Send'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.white,
+            ),
+            const SizedBox(width: 8),
+            ElevatedButton.icon(
+              onPressed: _submitComment,
+              icon: const Icon(Icons.send),
+              label: const Text('Send'),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.white,
               ),
-            ],
-          )
-
+            ),
+          ],
         ),
+        SizedBox(height: 10,),
         BlocBuilder<CommentCubit, CommentState>(
           builder: (context, state) {
             if (state is CommentStateLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: Loading());
             } else if (state is CommentStateLoaded) {
               final comments = state.comments;
-              return ListView.builder(
-                itemCount: comments.length,
-                itemBuilder: (context, index) {
-                  final comment = comments[index];
-                  return ListTile(title: Text(comment.comment));
-                },
+
+              return SizedBox(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    if(comments.length == 0){
+
+                      return Center(child: Text('no comments yet ',style: TextStyle(fontSize: 20),),);
+                    }
+                    final comment = comments[index];
+                    return ListTile(title: Text(comment.comment));
+                  },
+                ),
               );
             } else if (state is CommentStateError) {
-              return const Center(child: Text('Ошибка при загрузке комментариев'));
+              return const Center(child: Text('error'));
             }
-            return const SizedBox.shrink(); // initial
+            return SizedBox(); // initial
           },
         )
       ],

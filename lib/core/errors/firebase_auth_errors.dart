@@ -4,14 +4,15 @@ import 'package:flutter/foundation.dart' show immutable;
 
 
 const Map<String, AuthError> authErrorMapping = {
-  'The supplied auth credential is incorrect, malformed or has expired': AuthErrorUserNotFound(),
+  'user-not-found': AuthErrorUserNotFound(),
   'weak-password': AuthErrorWeakPassword(),
-  'auth/invalid-email': AuthErrorInvalidEmail(),
-  'auth/email-already-exists': AuthErrorEmailAlreadyInUse(),
+  'invalid-email': AuthErrorInvalidEmail(),
+  'email-already-in-use': AuthErrorEmailAlreadyInUse(),
   'operation-not-allowed': AuthErrorOperationNotAllowed(),
   'requires-recent-login': AuthErrorRequiresRecentLogin(),
-  'no-current-user': AuthErrorNoCurrentUser(),
+  'no-current-user': AuthErrorNoCurrentUser(), // Это может быть твоя кастомная ошибка
 };
+
 
 @immutable
 abstract class AuthError {

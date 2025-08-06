@@ -19,19 +19,20 @@ class AuthView extends StatelessWidget {
         }
 
         if (state is AuthStateLoggedIn) {
+          print('hi');
           return HomeView();
         }
+
         return Container();
       },
-      listener: (context, state) {
+      listener: (context, state) async {
+
         if (state is! AuthStateLoading && ModalRoute.of(context)?.isCurrent != true) {
           Navigator.of(context).pop();
         }
 
-
-
         if (state is AuthStateError) {
-          showFirebaseErrorDialog(
+          await showFirebaseErrorDialog(
               context: context, authError: AuthError.from(state.authError));
         }
       },

@@ -26,10 +26,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

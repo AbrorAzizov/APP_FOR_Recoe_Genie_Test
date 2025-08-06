@@ -43,11 +43,12 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signIn(SignInParameters params) async {
     emit(AuthStateLoading());
 
-      Either response = await sl<AuthRepo>().signIn(params);
+      final response = await sl<AuthRepo>().signIn(params);
 
       response.fold((error) {
         emit(AuthStateError(authError: error));
       }, (data) {
+
         emit(AuthStateLoggedIn());
       });
 

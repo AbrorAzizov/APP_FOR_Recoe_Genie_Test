@@ -20,8 +20,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -70,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(49, 39, 79, 1),
+                        color:Colors.grey,
                       ),
                     ),
                   ),
@@ -101,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         context.read<AuthCubit>().sigUp(SignUpParameters(password: password, email: email,username: name));
                       },
                       height: 50,
-                      color: Color.fromRGBO(49, 39, 79, 1),
+                      color: Colors.grey,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
@@ -127,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Text(
                           "Already have an account? Sign In",
                           style: TextStyle(
-                            color: Color.fromRGBO(49, 39, 79, .6),
+                            color: Colors.grey,
                           ),
                         ),
                       ),
@@ -147,12 +145,12 @@ class _SignUpPageState extends State<SignUpPage> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(196, 135, 198, .3)),
+        border: Border.all(color:Colors.grey),
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(196, 135, 198, .3),
+            color: Colors.grey,
             blurRadius: 20,
             offset: Offset(0, 10),
           ),

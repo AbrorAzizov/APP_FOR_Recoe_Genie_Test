@@ -134,28 +134,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   controller: postTextController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Information about food',
+                    hintText: 'Information about your problem',
                     hintStyle: TextStyle(color: Colors.grey.shade700),
                   ),
                 ),
               ),
               SizedBox(height: 20,),
-              Container(
-                height: 50 ,
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  border: Border.all(color:Colors.blueGrey),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.blueGrey,
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-              ),
               SizedBox(height: 250,),
               MaterialButton(
                 onPressed: () {

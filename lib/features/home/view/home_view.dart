@@ -7,18 +7,24 @@ import '../../../core/dialog/loading_dialog.dart';
 import '../bloc/home_bloc/home_event.dart';
 import '../bloc/home_bloc/home_state.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeBloc>().add(HomeEventFetchAllPosts());
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(builder: (context, state) {
 
-
-      if (state is HomeStateInitial){
-        context.read<HomeBloc>().add(HomeEventFetchAllPosts());
-
-      }
       if (state is HomeStateLoaded){
 
         return HomePage();

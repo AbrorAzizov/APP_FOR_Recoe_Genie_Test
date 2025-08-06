@@ -80,13 +80,13 @@ class PostWidget extends StatelessWidget {
               ),
             ),
           ],
-          SizedBox(width: 5,),
+          SizedBox(height: 10,),
           Text(post.postText,style: TextStyle(
             fontSize: 20
           ),),
+
           
-          
-          SizedBox(width: 5,),
+          SizedBox(height: 5,),
           Row(
             children: [
               IconButton(onPressed: () async {},
@@ -103,7 +103,7 @@ class PostWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20,),
-          BlocProvider(create: (context) => CommentCubit(),
+          BlocProvider(create: (context) => CommentCubit()..loadComments(post.id),
           child: CommentSection(postId: post.id,),)
         ],
       ),
